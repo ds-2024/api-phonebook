@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="phonebook">
+
+	<!-- 저장 등록 -->
+	<insert id="insert" parameterType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			insert into person
+			values(null, #{name}, #{hp}, #{company})	
+		]]>
+	</insert>
+
+	<!-- 전체리스트 -->
+	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+       
+         <![CDATA[
+			select  person_id as personId,
+					name,
+			        hp,
+			        company
+			from person		
+		 ]]>
+
+	</select>
+	
+	<!-- 삭제 -->
+   <insert id="delete" parameterType="com.javaex.vo.PersonVo">
+      <![CDATA[ 
+         delete from person
+         where no=#{no}
+         and password=#{password}
+      ]]>
+   </insert>
+
+</mapper>
