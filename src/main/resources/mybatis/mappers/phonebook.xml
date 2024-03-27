@@ -3,13 +3,32 @@
 
 <mapper namespace="phonebook">
 
-	<!-- 저장 등록 -->
-	<insert id="insert" parameterType="com.javaex.vo.PersonVo">
-		<![CDATA[
-			insert into person
-			values(null, #{name}, #{hp}, #{company})	
-		]]>
-	</insert>
+  <!-- 번호받고 저장하기 ajax -->
+   <insert id="insertSelectKey" parameterType="com.javaex.vo.PersonVo">
+      <![CDATA[   
+          insert into person
+          values ( null, #{name}, #{hp}, #{company})
+       ]]>
+       <selectKey keyProperty="personId" resultType="int" order="AFTER">   
+          <![CDATA[
+            select last_insert_id()
+            ]]>
+      	</selectKey>
+       
+   </insert>
+   
+    <!-- 데이터1개 가져오기 -->
+   <select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVo">
+      <![CDATA[
+         select  person_id as personId,
+                 name,
+                 hp,
+                 company            
+         from person
+         where person_id = #{no}
+      ]]>   
+   </select>
+	
 
 	<!-- 전체리스트 -->
 	<select id="selectList" resultType="com.javaex.vo.PersonVo">
@@ -19,7 +38,8 @@
 					name,
 			        hp,
 			        company
-			from person		
+			from person
+			order by person_id desc		
 		 ]]>
 
 	</select>
@@ -28,9 +48,34 @@
    <insert id="delete" parameterType="com.javaex.vo.PersonVo">
       <![CDATA[ 
          delete from person
-         where no=#{no}
-         and password=#{password}
+         where person_id = #{no}
+       
       ]]>
    </insert>
+   
+   <!-- 회원정보수정폼 -->
+	<select id="selectOneByNo" parameterType="int" resultType="com.javaex.vo.PersonVo">
+		<![CDATA[ 
+			select  person_id as personId,
+					name,
+			        hp,
+			        company
+			from person
+			where person_id = #{no}
+		]]>
+	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="update" parameterType="com.javaex.vo.PersonVo">
+		<![CDATA[ 
+			update person
+			set name = #{name},
+				hp = #{hp},
+				company = #{company}
+			where person_id = #{no}
+		]]>
+	</update>
+   
+   
 
 </mapper>
