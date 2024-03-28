@@ -49,7 +49,7 @@ public class PhonebookService {
 
 	// 회원정보수정폼(1명 데이터가져오기)
 	public PersonVo exeModifyForm(int no) {
-		System.out.println("UserService.exeModifyForm()");
+		System.out.println("PhonebookService.exeModifyForm()");
 
 		PersonVo personVo = phonebookDao.phonebookSelectOne(no);
 		return personVo;
@@ -57,7 +57,7 @@ public class PhonebookService {
 
 	// 회원정보 수정
 	public int exeModify(PersonVo personVo) {
-		System.out.println("UserService.exeModify()");
+		System.out.println("PhonebookService.exeModify()");
 
 		int count = phonebookDao.userUpdate(personVo);
 		System.out.println(personVo);

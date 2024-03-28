@@ -48,7 +48,7 @@
    <insert id="delete" parameterType="com.javaex.vo.PersonVo">
       <![CDATA[ 
          delete from person
-         where person_id = #{no}
+         where person_id = #{personId}
        
       ]]>
    </insert>
@@ -66,13 +66,13 @@
 	</select>
 	
 	<!-- 회원정보수정 -->
-	<update id="update" parameterType="com.javaex.vo.PersonVo">
+	<update id="update" parameterType="com.javaex.vo.PersonVo"><!-- 에러메시지에 mybatis 뜨면 db랑 매핑 문제 있을 수 있으니까 패러미터 타입 잘확인하기.String 이었으면 #{no} 가능. -->
 		<![CDATA[ 
 			update person
 			set name = #{name},
 				hp = #{hp},
 				company = #{company}
-			where person_id = #{no}
+			where person_id = #{personId}
 		]]>
 	</update>
    
